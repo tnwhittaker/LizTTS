@@ -26,22 +26,21 @@ import org.apache.poi.xwpf.usermodel.XWPFDocument;
  * @author Torrike
  */
 public class DocumentReader {
+    
     public String ReadPDFFile(String location) throws FileNotFoundException, IOException{
-        File file = new File(location);
-       
-            FileInputStream fileInputStream = new FileInputStream(file);
-            PDDocument pdfDDocument = PDDocument.load(fileInputStream);
-            PDFTextStripper pdfts = new PDFTextStripper();
-            return pdfts.getText(pdfDDocument);            
+        File file = new File(location);//Gets the location that was sent to the function
+        FileInputStream fileInputStream = new FileInputStream(file);//Creates a new input stream for the file
+        PDDocument pdfDDocument = PDDocument.load(fileInputStream);
+        PDFTextStripper pdfts = new PDFTextStripper();//Extracts the text from the PDF file
+        return pdfts.getText(pdfDDocument); //Returns the extracted text to a variable in the listener
     }
     
     public String ReadWordFile(String location) throws FileNotFoundException, IOException{
             try(XWPFDocument document = new XWPFDocument(Files.newInputStream(Paths.get(location)))){
-                XWPFWordExtractor xWPFWordExtractor = new XWPFWordExtractor(document);
-                String docString = xWPFWordExtractor.getText();
+                XWPFWordExtractor xWPFWordExtractor = new XWPFWordExtractor(document);//Creates a new instance of the class
+                String docString = xWPFWordExtractor.getText();//Extracts all text from the Word document
                 return docString;
             }
-            
 
         }
     
@@ -62,18 +61,17 @@ public class DocumentReader {
         	        text = text.concat("Text: "+textShape.getText()+"\n");
         		}
         	}
-        }
-        return text;
+        }//Loops through each individual slide extracting text and concatinating it to a variable
+        return text;//Returns the extracted text to main program
     }
     
     public String ReadTXTFile(String location) throws FileNotFoundException{
-        File file = new File(location);
+        File file = new File(location);//Stores the file location
         Scanner sc = new Scanner(file);
         String text= "";
         while (sc.hasNextLine()){
             text = text.concat(sc.nextLine());
-            //System.out.println(sc.nextLine());
-        }
+        }//Loops through the text file and concatinates each line to the variable
         
         return text;
     }

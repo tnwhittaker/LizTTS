@@ -12,15 +12,16 @@ import com.sun.speech.freetts.*;
  */
 public class LizVoice {
     private static final String VoiceName ="kevin16";
+//Stores the name of the voice from the freetts library that will be used
     public void Talk(String words){
         System.setProperty("freetts.voices", "com.sun.speech.freetts.en.us.cmu_us_kal.KevinVoiceDirectory");
         Voice voice;
         VoiceManager voiceManager = VoiceManager.getInstance();
-        voice= voiceManager.getVoice(VoiceName);
-        voice.allocate();
+        voice= voiceManager.getVoice(VoiceName);//Assigns the voice that will be used
+        voice.allocate();//Loads the voice into memory
         
         try {
-            voice.speak(words);
+            voice.speak(words);//Loads the string that was sent to the function to be turned into speech
         } catch (Exception e) {
         }
     }

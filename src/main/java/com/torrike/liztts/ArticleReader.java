@@ -4,29 +4,35 @@
  */
 package com.torrike.liztts;
 
-import com.spire.pdf.graphics.PdfMargins;
-import com.spire.pdf.htmlconverter.qt.HtmlConverter;
-import com.spire.pdf.htmlconverter.qt.Size;
+import java.io.IOException;
 import javax.swing.JOptionPane;
+import org.jsoup.Connection;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 
 
 /**
  *
- * @author Torrike
+ * @author Torrike Whittaker
  */
 public class ArticleReader {
-    public String Convert(String URL){
-        
-            //Specify the output file path
-            String fileName = "C:\\Users\\Torrike\\Documents\\UrlToPdf.pdf";
-            //Specify the plugin path
-            String pluginPath = "C:\\Users\\Torrike\\Documents\\NetBeansProjects\\LizTTS\\src\\main\\java\\com\\resources\\plugins";
-            //Set the plugin path
-            HtmlConverter.setPluginPath(pluginPath);
-            //Convert URL to PDF
-            HtmlConverter.convert(URL, fileName, true, 1000000, new Size(1200f, 1000f), new PdfMargins(0));
-            return fileName;
-        
+    public String Convert(String URL) throws IOException{
+        String result ="";
+        if(URL.startsWith("https://") || URL.startsWith("http://")){//Checks if the URL is valid
+        //Connects to the submitted web page
+        Connection conn = Jsoup.connect(URL);
+        //executes the get request for information
+        Document doc = conn.get();
+        //Retrieves the elements inside the body of the web page
+        result = doc.body().text();
+      }
+        else{
+            JOptionPane.showMessageDialog(null,"URL must start with http:// or http://","Invalid URL",JOptionPane.INFORMATION_MESSAGE);
+            //Prompts the user that they must enter a link that fits the criteria
+        }
+      
+    return result;//Returns the stripped text from the website 
+
     }
 }

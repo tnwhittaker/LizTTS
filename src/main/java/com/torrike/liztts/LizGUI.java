@@ -16,7 +16,7 @@ import org.apache.commons.io.FilenameUtils;
 
 /**
  *
- * @author Torrike
+ * @author Torrike Whittaker
  */
 public class LizGUI extends javax.swing.JFrame {
 
@@ -485,46 +485,48 @@ public class LizGUI extends javax.swing.JFrame {
     private void UploadFileBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UploadFileBttnActionPerformed
         MainScreen.setVisible(false);
         ReadDocScreen.setVisible(true);
-
+        //Goes to the screen that allows the user to upload a file for reading 
     }//GEN-LAST:event_UploadFileBttnActionPerformed
 
     private void ReadTextBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReadTextBttnActionPerformed
         // TODO add your handling code here:
         MainScreen.setVisible(false);
         ReadTxtScreen.setVisible(true);
-        
+        //Goes to the screen that allows the user to type text 
     }//GEN-LAST:event_ReadTextBttnActionPerformed
 
     private void back_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_back_buttonActionPerformed
         // TODO add your handling code here:
         ReadTxtScreen.setVisible(false);
         MainScreen.setVisible(true);
+        //Goes back to the main screen
     }//GEN-LAST:event_back_buttonActionPerformed
 
     private void ReadArticleBttnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReadArticleBttnActionPerformed
         // TODO add your handling code here:
         MainScreen.setVisible(false);
         ReadArticleScreen.setVisible(true);
+        //Goes to the screen that allows the user to enter a link to read an article
     }//GEN-LAST:event_ReadArticleBttnActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         try {
             JFileChooser chooser = new JFileChooser();
-            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-            chooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF","PDF"));
-            chooser.addChoosableFileFilter(new FileNameExtensionFilter("MS PowerPoint","pptx"));
-            chooser.addChoosableFileFilter(new FileNameExtensionFilter("MS Word Document","docx"));
-            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Text Files","txt"));
-            chooser.setAcceptAllFileFilterUsed(false);
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);//Restricts the user from selecting folders
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("PDF","PDF"));//Adds a filter for PDFs only
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("MS PowerPoint","pptx"));//Adds a filter for PPTX only
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("MS Word Document","docx"));//Adds a filter for DOCX only
+            chooser.addChoosableFileFilter(new FileNameExtensionFilter("Text Files","txt"));//Adds a filter for TXT only
+            chooser.setAcceptAllFileFilterUsed(false);//Restricts the user from selecting any file type they want
             int res= chooser.showOpenDialog(this);
             if (res == JFileChooser.APPROVE_OPTION){
                 File f = chooser.getSelectedFile();
-                FileLocationTxtField.setText(f.getAbsolutePath());
+                FileLocationTxtField.setText(f.getAbsolutePath());//Adds the filepath to the txtfield on the GUI
             }
         } catch (HeadlessException e) {
             System.out.println("Exception"+e.getMessage());
-        }
+        }//Brings up a pop up menu where the user can select the file they want Liz to read from
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
@@ -545,32 +547,35 @@ public class LizGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       String test = txtToRead.getText();
+       String results = txtToRead.getText();//Retrives the text from the textarea 
        LexicalAnalysis LA = new LexicalAnalysis();
-       LA.performLexicalAnalysis(test);
+       LA.performLexicalAnalysis(results);
        LizVoice lizVoice = new LizVoice();
-       lizVoice.Talk(test);
+       lizVoice.Talk(results);//Reads the text that was retrived from the user
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        String location = FileLocationTxtField.getText();
-        String fileExtension = FilenameUtils.getExtension(location); 
+        String location = FileLocationTxtField.getText();//Retrives the location from the text field on the GUI
+        String fileExtension = FilenameUtils.getExtension(location); //Examines the file extension
         DocumentReader documentReader = new DocumentReader();
+        
         LizVoice lv = new LizVoice();
         LexicalAnalysis LA = new LexicalAnalysis();
-
+        
         if("pdf".equals(fileExtension)) {
                 String results = "";
                 try {
                     results = documentReader.ReadPDFFile(location);
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 LA.performLexicalAnalysis(results);
-                lv.Talk(results);
-            }
+                //Calls the function that will perform a lexical analysis of the information retrived
+                lv.Talk(results);//Reads the information aloud 
+            }//If the user selects a pdf file, it will call the necessary functions to parse the text and read it 
         else if("docx".equals(fileExtension)){
             try {
                 String results = documentReader.ReadWordFile(location);
@@ -580,7 +585,7 @@ public class LizGUI extends javax.swing.JFrame {
                 Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
-            }
+            }//If the user selects a docx file, it will call the necessary functions to parse the text and read it 
         else if("pptx".equals(fileExtension)){
             try {
                 String results = documentReader.ReadPowerPointFile(location);
@@ -591,7 +596,7 @@ public class LizGUI extends javax.swing.JFrame {
                 Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
-        }
+        }//If the user selects a pptx file, it will call the necessary functions to parse the text and read it 
         else if("txt".equals(fileExtension)){
             try {
                 String results=documentReader.ReadTXTFile(location);
@@ -600,23 +605,23 @@ public class LizGUI extends javax.swing.JFrame {
             } catch (FileNotFoundException ex) {
                 Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+        }//If the user selects a txt file, it will call the necessary functions to parse the text and read it 
 
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
+            LexicalAnalysis LA = new LexicalAnalysis();
             LizVoice lv = new LizVoice();
-            DocumentReader dr = new DocumentReader();
             String url = URLTxtField.getText();
             ArticleReader ar = new ArticleReader();
-            String location = ar.Convert(url);
-            String results = dr.ReadPDFFile(location);
+            String results = ar.Convert(url);
+            LA.performLexicalAnalysis(results);
             lv.Talk(results);
         } catch (IOException ex) {
             Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }//When the button is pressed, it sends the link to the function for processing and gets the text for reading
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

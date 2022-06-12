@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  *
- * @author Torrike
+ * @author Torrike Whittaker
  */
 public class LexicalAnalysis {
 
@@ -21,52 +21,62 @@ public class LexicalAnalysis {
         StanfordCoreNLP stanfordCoreNLP = Pipeline.getPipeLine();
         CoreDocument coreDocument =  new CoreDocument(sentence);        
         
-        System.out.println("====PERFORMING TOKENIZATION====");
+        System.out.println("==========PERFORMING TOKENIZATION==========");
         stanfordCoreNLP.annotate(coreDocument);
-        List<CoreLabel> TokensList = coreDocument.tokens();
+        List<CoreLabel> TokensList = coreDocument.tokens();//Stores in a list all the recorded tokens
         for(CoreLabel coreLabel : TokensList){
             System.out.println(coreLabel.originalText());
-        }
+        }//Loops through the list and prints the tokens
+        
         System.out.println("====END OF TOKENIZATION===="+"\n\n");
         
-        System.out.println("====PERFORMING SENTENCE RECOGNIZATION====");
-        List<CoreSentence> SentencesList = coreDocument.sentences();
+        System.out.println("==========PERFORMING SENTENCE RECOGNIZATION==========");
+    List<CoreSentence> SentencesList=coreDocument.sentences();//List that contains all the recognized sentences 
         SentencesList.forEach(s -> {
-            System.out.println(s.toString());
+            System.out.println(s.toString());//Loops through the list and prints the sentences
         });
-        System.out.println("====END OF SENTENCE RECOGNIZATION===="+"\n\n");
+        System.out.println("==========END OF SENTENCE RECOGNIZATION=========="+"\n\n");
         
-        System.out.println("====PERFORMING PARTS OF SPEECH ANALYSIS====");
+        System.out.println("==========PERFORMING PARTS OF SPEECH ANALYSIS==========");
+        //Parts of speech was included in the library's vocabulary so there was no need to build one of my own
         List<CoreLabel> POSList = coreDocument.tokens();
         for(CoreLabel coreLabel: POSList){
             String pos = coreLabel.getString(CoreAnnotations.PartOfSpeechAnnotation.class);
+            //Assigns each token a part of speech and stores it in a list
             System.out.println(coreLabel.originalText() + " = "+ pos);
+            //Prints out the original word and its part of speech
+
         }
-        System.out.println("====END OF PARTS OF SPEECH ANALYSIS===="+"\n\n");
+        System.out.println("==========END OF PARTS OF SPEECH ANALYSIS=========="+"\n\n");
         
-        System.out.println("====PERFORMING LEMMANTIC ANALYSIS====");
-        List<CoreLabel> LemanticList = coreDocument.tokens();
+        System.out.println("==========PERFORMING LEMMANTIC ANALYSIS==========");
+        List<CoreLabel> LemanticList = coreDocument.tokens();//List to store tokens
         for(CoreLabel coreLabel: LemanticList){
             String lemma = coreLabel.lemma();
+            //Finds the root word for each token identified
             System.out.println("The root word of "+ coreLabel.originalText() + " is " +lemma);
         }
-        System.out.println("====END OF LEMMANTIC ANALYSIS===="+"\n\n");
+        System.out.println("==========END OF LEMMANTIC ANALYSIS=========="+"\n\n");
   
-        System.out.println("====PERFORMING NAMED ENTITY RECOGNITION====");
+        System.out.println("==========PERFORMING NAMED ENTITY RECOGNITION==========");
         List<CoreLabel> NERList = coreDocument.tokens();
         for(CoreLabel coreLabel: NERList){
             String ner = coreLabel.get(CoreAnnotations.NamedEntityTagAnnotation.class);
+            //Checks what the token is and stores it in a variable
             System.out.println("The word "+coreLabel.originalText()+ " is a "+ ner);
+            //Prints out what each token is classified as
         }
-        System.out.println("====END OF NAMED ENTITY RECOGNITION===="+"\n\n");
+        System.out.println("==========END OF NAMED ENTITY RECOGNITION=========="+"\n\n");
         
-        System.out.println("====PERFORMING SENTIMENT ANALYSIS====");
+        System.out.println("==========PERFORMING SENTIMENT ANALYSIS==========");
         List<CoreSentence> SAList = coreDocument.sentences();    
+        //List to store gathered sentences
         for(CoreSentence coreSentence: SAList){
             String sentiment = coreSentence.sentiment();
+            //Determines the tone of the sentence and stores it in a variable
             System.out.println("Sentiment: " + sentiment +"\n"+ "Sentence: "+ coreSentence+"\n");
         }
-        System.out.println("====END OF SENTIMENT ANALYSIS===="+"\n\n");
+        System.out.println("==========END OF SENTIMENT ANALYSIS=========="+"\n\n");
 
         
     }
