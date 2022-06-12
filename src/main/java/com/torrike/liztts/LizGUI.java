@@ -6,15 +6,13 @@ package com.torrike.liztts;
 
 import java.awt.HeadlessException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
 /**
  *
@@ -70,7 +68,7 @@ public class LizGUI extends javax.swing.JFrame {
         blackstrip1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        URLTxtField = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
@@ -428,6 +426,11 @@ public class LizGUI extends javax.swing.JFrame {
 
         jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\Torrike\\Documents\\NetBeansProjects\\LizTTS\\src\\main\\java\\com\\resources\\speaker.png")); // NOI18N
         jButton2.setText("Search and Speak");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton6.setIcon(new javax.swing.ImageIcon("C:\\Users\\Torrike\\Documents\\NetBeansProjects\\LizTTS\\src\\main\\java\\com\\resources\\backicon.png")); // NOI18N
         jButton6.setText("Back");
@@ -450,7 +453,7 @@ public class LizGUI extends javax.swing.JFrame {
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
                         .addGroup(ReadArticleScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(URLTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 439, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(ReadArticleScreenLayout.createSequentialGroup()
                                 .addComponent(jButton6)
                                 .addGap(18, 18, 18)
@@ -466,7 +469,7 @@ public class LizGUI extends javax.swing.JFrame {
                 .addGap(91, 91, 91)
                 .addGroup(ReadArticleScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(URLTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(48, 48, 48)
                 .addGroup(ReadArticleScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -556,7 +559,8 @@ public class LizGUI extends javax.swing.JFrame {
         String fileExtension = FilenameUtils.getExtension(location); 
         DocumentReader documentReader = new DocumentReader();
         LizVoice lv = new LizVoice();
-        
+        LexicalAnalysis LA = new LexicalAnalysis();
+
         if("pdf".equals(fileExtension)) {
                 String results = "";
                 try {
@@ -564,14 +568,12 @@ public class LizGUI extends javax.swing.JFrame {
                 } catch (IOException ex) {
                     Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                LexicalAnalysis LA = new LexicalAnalysis();
                 LA.performLexicalAnalysis(results);
                 lv.Talk(results);
             }
         else if("docx".equals(fileExtension)){
             try {
                 String results = documentReader.ReadWordFile(location);
-                LexicalAnalysis LA = new LexicalAnalysis();
                 LA.performLexicalAnalysis(results);
                 lv.Talk(results);
             } catch (IOException ex) {
@@ -583,7 +585,6 @@ public class LizGUI extends javax.swing.JFrame {
             try {
                 String results = documentReader.ReadPowerPointFile(location);
                 System.out.println(results);
-                LexicalAnalysis LA = new LexicalAnalysis();
                 LA.performLexicalAnalysis(results);
                 lv.Talk(results);
             } catch (IOException ex) {
@@ -592,11 +593,31 @@ public class LizGUI extends javax.swing.JFrame {
                 
         }
         else if("txt".equals(fileExtension)){
-            System.out.println("com.torrike.liztts.LizGUI.jButton4ActionPerformed()");
+            try {
+                String results=documentReader.ReadTXTFile(location);
+                LA.performLexicalAnalysis(results);
+                lv.Talk(results);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try {
+            LizVoice lv = new LizVoice();
+            DocumentReader dr = new DocumentReader();
+            String url = URLTxtField.getText();
+            ArticleReader ar = new ArticleReader();
+            String location = ar.Convert(url);
+            String results = dr.ReadPDFFile(location);
+            lv.Talk(results);
+        } catch (IOException ex) {
+            Logger.getLogger(LizGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -641,6 +662,7 @@ public class LizGUI extends javax.swing.JFrame {
     private javax.swing.JPanel ReadDocScreen;
     private javax.swing.JButton ReadTextBttn;
     private javax.swing.JPanel ReadTxtScreen;
+    private javax.swing.JTextField URLTxtField;
     private javax.swing.JButton UploadFileBttn;
     private javax.swing.JButton back_button;
     private javax.swing.JPanel blackstrip;
@@ -663,7 +685,6 @@ public class LizGUI extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField2;
     private java.awt.Panel panel2;
     private java.awt.Panel panel3;
     private javax.swing.JTextArea txtToRead;

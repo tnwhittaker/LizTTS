@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Scanner;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.ooxml.POIXMLProperties.CoreProperties;
@@ -63,7 +64,18 @@ public class DocumentReader {
         	}
         }
         return text;
-
     }
     
-}
+    public String ReadTXTFile(String location) throws FileNotFoundException{
+        File file = new File(location);
+        Scanner sc = new Scanner(file);
+        String text= "";
+        while (sc.hasNextLine()){
+            text = text.concat(sc.nextLine());
+            //System.out.println(sc.nextLine());
+        }
+        
+        return text;
+    }
+    
+}//End of class
