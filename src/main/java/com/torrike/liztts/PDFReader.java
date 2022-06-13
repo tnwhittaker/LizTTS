@@ -15,7 +15,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
  *
  * @author Torrike
  */
-public class DocumentReader {
+public class PDFReader {
     public String ReadFile(String location) throws FileNotFoundException, IOException{
         File file = new File(location);
        

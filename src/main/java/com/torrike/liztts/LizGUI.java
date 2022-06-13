@@ -12,6 +12,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.apache.commons.io.FilenameUtils;
 
 /**
@@ -46,6 +47,7 @@ public class LizGUI extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 5), new java.awt.Dimension(0, 5), new java.awt.Dimension(32767, 5));
+        jLabel8 = new javax.swing.JLabel();
         ReadTxtScreen = new javax.swing.JPanel();
         panel2 = new java.awt.Panel();
         jPanel4 = new javax.swing.JPanel();
@@ -107,7 +109,7 @@ public class LizGUI extends javax.swing.JFrame {
         );
 
         jLabel1.setFont(new java.awt.Font("Nirmala UI", 1, 36)); // NOI18N
-        jLabel1.setText("Liz Text To Speech");
+        jLabel1.setText("         Welcome");
 
         ReadTextBttn.setIcon(new javax.swing.ImageIcon("C:\\Users\\Torrike\\Documents\\NetBeansProjects\\LizTTS\\src\\main\\java\\com\\resources\\Webp.net-resizeimage.png")); // NOI18N
         ReadTextBttn.setText("Read Text");
@@ -143,6 +145,9 @@ public class LizGUI extends javax.swing.JFrame {
         filler4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         filler4.setOpaque(true);
 
+        jLabel8.setFont(new java.awt.Font("Nirmala UI", 1, 36)); // NOI18N
+        jLabel8.setText("Liz Text To Speech");
+
         javax.swing.GroupLayout MainScreenLayout = new javax.swing.GroupLayout(MainScreen);
         MainScreen.setLayout(MainScreenLayout);
         MainScreenLayout.setHorizontalGroup(
@@ -152,32 +157,37 @@ public class LizGUI extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(MainScreenLayout.createSequentialGroup()
                         .addComponent(whitestrip, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49)
-                        .addComponent(ReadTextBttn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(MainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(MainScreenLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(ReadTextBttn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(UploadFileBttn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, 6, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(ReadArticleBttn))
                             .addGroup(MainScreenLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
+                                .addGap(192, 192, 192)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(111, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
+            .addGroup(MainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, MainScreenLayout.createSequentialGroup()
+                    .addContainerGap(203, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(107, 107, 107)))
         );
         MainScreenLayout.setVerticalGroup(
             MainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(whitestrip, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(MainScreenLayout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(36, 36, 36)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addGap(71, 71, 71)
                 .addGroup(MainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(ReadArticleBttn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(filler2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -186,6 +196,11 @@ public class LizGUI extends javax.swing.JFrame {
                         .addComponent(UploadFileBttn))
                     .addComponent(filler4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(79, 79, 79))
+            .addGroup(MainScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(MainScreenLayout.createSequentialGroup()
+                    .addGap(16, 16, 16)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(360, Short.MAX_VALUE)))
         );
 
         getContentPane().add(MainScreen, "card2");
@@ -260,7 +275,7 @@ public class LizGUI extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(back_button))
                     .addComponent(jLabel3))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         ReadTxtScreenLayout.setVerticalGroup(
             ReadTxtScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -367,7 +382,7 @@ public class LizGUI extends javax.swing.JFrame {
                                 .addComponent(FileLocationTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButton3)))))
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addGap(0, 37, Short.MAX_VALUE))
         );
         ReadDocScreenLayout.setVerticalGroup(
             ReadDocScreenLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -548,10 +563,15 @@ public class LizGUI extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        String results = txtToRead.getText();//Retrives the text from the textarea 
-       LexicalAnalysis LA = new LexicalAnalysis();
-       LA.performLexicalAnalysis(results);
-       LizVoice lizVoice = new LizVoice();
-       lizVoice.Talk(results);//Reads the text that was retrived from the user
+       if(results.isEmpty()|| results.trim().isEmpty()){
+         JOptionPane.showMessageDialog(null,"String cannot be all blank","Blank String",JOptionPane.INFORMATION_MESSAGE);
+       }else{
+            LexicalAnalysis LA = new LexicalAnalysis();
+            LA.performLexicalAnalysis(results);
+            LizVoice lizVoice = new LizVoice();
+            lizVoice.Talk(results);//Reads the text that was retrived from the user    
+       }
+       
        
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -687,6 +707,7 @@ public class LizGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;

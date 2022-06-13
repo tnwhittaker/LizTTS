@@ -20,6 +20,8 @@ public class LexicalAnalysis {
     public void performLexicalAnalysis(String sentence){
         StanfordCoreNLP stanfordCoreNLP = Pipeline.getPipeLine();
         CoreDocument coreDocument =  new CoreDocument(sentence);        
+        System.out.println("The sentence: "+sentence+"\n");
+        System.out.println("======================================================");
         
         System.out.println("==========PERFORMING TOKENIZATION==========");
         stanfordCoreNLP.annotate(coreDocument);
@@ -31,7 +33,7 @@ public class LexicalAnalysis {
         System.out.println("====END OF TOKENIZATION===="+"\n\n");
         
         System.out.println("==========PERFORMING SENTENCE RECOGNIZATION==========");
-    List<CoreSentence> SentencesList=coreDocument.sentences();//List that contains all the recognized sentences 
+        List<CoreSentence> SentencesList=coreDocument.sentences();//List that contains all the recognized sentences 
         SentencesList.forEach(s -> {
             System.out.println(s.toString());//Loops through the list and prints the sentences
         });
